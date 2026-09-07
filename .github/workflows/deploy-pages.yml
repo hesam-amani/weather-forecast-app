@@ -1,0 +1,68 @@
+name: Deploy Weather App to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Configure GitHub Pages
+        uses: actions/configure-pages@v5
+
+      - name: Generate runtime configuration
+        env:
+          WEATHER_KEY: ${{ secrets.WEATHER_KEY }}
+        run: |
+          test -n "$WEATHER_KEY"
+          python - <<'PY'
+          import json
+          import os
+          from pathlib import Path
+
+          key = os.environ["WEATHER_KEY"]
+          config = {
+              "OPENWEATHER_API_KEY": key,
+          }
+          Path("config.js").write_text(
+              "window.WEATHER_CONFIG = " + json.dumps(config) + ";\n\n"
+              "const originalFetch = window.fetch.bind(window);\n"
+              "window.fetch = function (input, init) {\n"
+              "  try {\n"
+              "    const url = new URL(typeof input === \"string\" ? input : input.url, window.location.href);\n"
+              "    if (url.hostname === \"api.openweathermap.org\") {\n"
+              "      url.searchParams.set(\"appid\", window.WEATHER_CONFIG.OPENWEATHER_API_KEY);\n"
+              "      input = url.toString();\n"
+              "    }\n"
+              "  } catch (_) {}\n"
+              "  return originalFetch(input, init);\n"
+              "};\n",
+              encoding="utf-8",
+          )
+          PY
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: .
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

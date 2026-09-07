@@ -1,0 +1,23 @@
+# Operating Systems
+.DS_Store
+Thumbs.db
+
+# Editors
+.vscode/
+.idea/
+
+# Logs
+*.log
+
+# Temporary Files
+*.tmp
+
+# Environment variables
+.env
+.env.*
+
+# API Keys
+config.js
+
+# Node (future-proof)
+node_modules/

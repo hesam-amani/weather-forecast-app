@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Forecast App</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Weather Forecast</h1>
+
+        <!-- Input section -->
+        <input type="text" id="cityInput" placeholder="Enter city name">
+        <button id="getWeatherBtn">🔍 Get Weather</button>
+        <button id="geoBtn">📍 Use My Location</button>
+        <button id="unitToggleBtn">🔃 Switch to °F</button>
+        <button id="muteBtn">🔊 Mute</button>
+
+        <!-- Weather effects container -->
+        <div class="effects-container"></div>
+
+        <!-- Weather info output -->
+        <div id="weatherResult"></div>
+
+        <!-- Hourly forecast container -->
+        <div class="hourly-container" id="hourlyForecast"></div>
+
+        <!-- Weather Charts -->
+        <div class="charts-container">
+            <h2>Weather Charts</h2>
+            <div class="chart-wrapper">
+                <canvas id="tempChart"></canvas>
+            </div>
+            <div class="chart-wrapper">
+                <canvas id="windChart"></canvas>
+            </div>
+            <div class="chart-wrapper">
+                <canvas id="rainChart"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- Generated during the GitHub Pages deployment from a repository secret. -->
+    <script src="config.js"></script>
+    <script src="script.js"></script>
+
+    <script>
+        document.getElementById("getWeatherBtn").addEventListener("click", () => getWeather());
+        document.getElementById("geoBtn").addEventListener("click", () => getWeather(true));
+        document.getElementById("unitToggleBtn").addEventListener("click", toggleUnit);
+
+        // Mute/unmute ambient sounds
+        const muteBtn = document.getElementById("muteBtn");
+        let isMuted = false;
+        muteBtn.addEventListener("click", () => {
+            isMuted = !isMuted;
+            muteBtn.innerText = isMuted ? "🔇 Muted" : "🔊 Unmute";
+            for (const sound of Object.values(ambientSounds)) {
+                sound.muted = isMuted;
+            }
+        });
+    </script>
+</body>
+</html>
