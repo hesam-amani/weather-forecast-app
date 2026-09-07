@@ -1,4 +1,4 @@
-const API_KEY = "YOUR_API_KEY_HERE";
+const API_KEY = window.WEATHER_CONFIG?.OPENWEATHER_API_KEY || "YOUR_API_KEY_HERE";
 let currentUnit = "metric";
 
 /* ---------------- Ambient sound ---------------- */
@@ -568,8 +568,7 @@ function toggleUnit() {
     currentUnit === "metric" ? "Switch to °F" : "Switch to °C";
 
   if (lastSearch.lat != null && lastSearch.lon != null) {
-    // Respect the original source: geo -> call with true to force fresh coords,
-    // city -> call with false to reuse city coords.
-    getWeather(lastSearch.type === "geo");
+    // Reuse the last known location for city searches; refresh geolocation when needed.
+    getWeather(false);
   }
 }
