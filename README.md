@@ -75,8 +75,6 @@ weather-forecast-app/
 
 The app uses an OpenWeatherMap API key supplied at deployment time by GitHub Actions. The key is stored as a GitHub Actions repository secret and is never committed to the repository.
 
-> **⚠️ Note:** Because this is a client-side weather app, the browser ultimately needs access to the API credential. GitHub Actions secrets protect the key from being committed to the repository, but they do not make a browser-side API key truly secret.
-
 ---
 
 ## 🎮 Usage
