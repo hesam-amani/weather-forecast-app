@@ -37,33 +37,9 @@ jobs:
           import os
           from pathlib import Path
 
-          key = os.environ["WEATHER_KEY"]
-          config = {
-              "OPENWEATHER_API_KEY": key,
-          }
+          config = {"OPENWEATHER_API_KEY": os.environ["WEATHER_KEY"]}
           Path("config.js").write_text(
-              "window.WEATHER_CONFIG = " + json.dumps(config) + ";\n\n"
-              "const originalFetch = window.fetch.bind(window);\n"
-              "window.fetch = function (input, init) {\n"
-              "  try {\n"
-              "    const rawUrl = typeof input === \"string\"\n"
-              "      ? input\n"
-              "      : input instanceof URL\n"
-              "        ? input.href\n"
-              "        : input && typeof input.url === \"string\"\n"
-              "          ? input.url\n"
-              "          : null;\n"
-              "\n"
-              "    if (rawUrl) {\n"
-              "      const url = new URL(rawUrl, window.location.href);\n"
-              "      if (url.hostname === \"api.openweathermap.org\") {\n"
-              "        url.searchParams.set(\"appid\", window.WEATHER_CONFIG.OPENWEATHER_API_KEY);\n"
-              "        input = url.toString();\n"
-              "      }\n"
-              "    }\n"
-              "  } catch (_) {}\n"
-              "  return originalFetch(input, init);\n"
-              "};\n",
+              "window.WEATHER_CONFIG = " + json.dumps(config) + ";\n",
               encoding="utf-8",
           )
           PY
