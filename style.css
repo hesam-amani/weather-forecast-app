@@ -17,6 +17,24 @@ img {
     pointer-events: none;
 }
 
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+input:focus-visible,
+button:focus-visible {
+    outline: 3px solid #fff;
+    outline-offset: 3px;
+}
+
 /* Day/night theming is handled dynamically in script.js via the API icon codes */
 
 .container {
@@ -118,7 +136,7 @@ button:hover {
     display: block;
     width: 100%;
     max-width: 1400px;
-    box-sizing: border-box; 
+    box-sizing: border-box;
     margin-left: auto;
     margin-right: auto;
     box-shadow: 0 8px 16px rgba(0,0,0,0.4);
@@ -291,3 +309,14 @@ canvas {
 @keyframes swing { 0% { transform: rotate(0deg); } 25% { transform: rotate(10deg); } 50% { transform: rotate(0deg); } 75% { transform: rotate(-10deg); } 100% { transform: rotate(0deg); } }
 @keyframes float { 0% { transform: translateY(0); } 50% { transform: translateY(-5px); } 100% { transform: translateY(0); } }
 @keyframes blow { 0% { transform: translateX(0); } 50% { transform: translateX(5px); } 100% { transform: translateX(0); } }
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important;
+        transition-duration: 0.01ms !important;
+    }
+}
