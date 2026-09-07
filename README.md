@@ -1,99 +1,114 @@
-![HTML5](https://img.shields.io/badge/HTML-5-E34F26?logo=html5&logoColor=white)
-![CSS3](https://img.shields.io/badge/CSS-3-1572B6?logo=html5&logoColor=white)
-![JavaScript](https://img.shields.io/badge/JavaScript-ES6-F7DF1E?logo=javascript&logoColor=black)
-![License](https://img.shields.io/badge/License-MIT-green.svg)
-
 # 🌦️ Weather Forecast App
 
-A beautiful, fully client-side weather application with **live visual effects**, **ambient sounds**, and **interactive charts** — all powered by the [OpenWeatherMap API](https://openweathermap.org/api).
+[![HTML5](https://img.shields.io/badge/HTML-5-E34F26?logo=html5&logoColor=white)](https://developer.mozilla.org/en-US/docs/Web/HTML)
+[![CSS3](https://img.shields.io/badge/CSS-3-1572B6?logo=css3&logoColor=white)](https://developer.mozilla.org/en-US/docs/Web/CSS)
+[![JavaScript](https://img.shields.io/badge/JavaScript-ES6-F7DF1E?logo=javascript&logoColor=black)](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
+[![GitHub Pages](https://img.shields.io/badge/Live-GitHub%20Pages-222?logo=github)](https://hesam-amani.github.io/weather-forecast-app/)
+[![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
----
+A client-side weather application with **live weather data**, **dynamic visual effects**, **ambient sounds**, **interactive charts**, and a **5-day forecast** — powered by the [OpenWeatherMap API](https://openweathermap.org/api).
 
 ## ✨ Features
 
 | Feature | Description |
 |---|---|
 | 🔍 **City Search** | Look up current weather by city name |
-| 📍 **Geolocation** | One-click weather for your current location |
-| 🌡️ **Unit Toggle** | Switch between Celsius (°C) and Fahrenheit (°F) on the fly |
-| 📅 **5-Day Forecast** | Daily forecast cards with icons and temperatures |
+| 📍 **Geolocation** | Get weather for your current location with browser permission |
+| 🌡️ **Unit Toggle** | Switch between Celsius (°C) and Fahrenheit (°F) |
+| 📅 **5-Day Forecast** | Daily forecast cards with weather icons and temperatures |
 | ⏱️ **Hourly Forecast** | Scrollable 36-hour forecast in 3-hour steps |
-| 📊 **Live Charts** | Temperature, wind speed, and rain volume charts (Chart.js) |
-| 🎨 **Dynamic Backgrounds** | Gradient backgrounds that adapt to the current weather |
-| 🌧️ **Weather Effects** | Animated rain drops, snowflakes, clouds, thunderstorm flashes, and sun shafts |
-| 🔊 **Ambient Sounds** | Weather-matched audio (rain, wind, thunder, birds, etc.) with mute control |
-| 🌙 **Day / Night Mode** | Automatic theme shift based on local time |
+| 📊 **Interactive Charts** | Temperature, wind speed, and rain-volume charts using Chart.js |
+| 🎨 **Dynamic Backgrounds** | Background gradients adapt to the current conditions and time of day |
+| 🌧️ **Weather Effects** | Animated rain, snow, clouds, thunderstorm flashes, stars, moon, and sun shafts |
+| 🔊 **Ambient Sounds** | Weather-matched sounds with mute control |
+| 🌙 **Day / Night** | Theme and effects adapt to the weather service's day/night icon |
 
----
+## 🌐 Live Demo
 
-## 🖼️ Preview
-
-> Open `index.html` in any modern browser — no build step required.
-
----
+**[Open the Weather Forecast App](https://hesam-amani.github.io/weather-forecast-app/)**
 
 ## 🛠️ Tech Stack
 
-- **HTML5** / **CSS3** / **Vanilla JavaScript** — zero frameworks
-- **[Chart.js](https://www.chartjs.org/)** (CDN) — responsive, animated charts
-- **[OpenWeatherMap API](https://openweathermap.org/api)** — current weather, geocoding, and 5-day/3-hour forecasts
-
----
+- **HTML5** / **CSS3** / **Vanilla JavaScript** — no framework or build system
+- **[Chart.js](https://www.chartjs.org/)** — responsive weather charts loaded from jsDelivr
+- **[OpenWeatherMap API](https://openweathermap.org/api)** — current weather, geocoding, and 5-day/3-hour forecast data
+- **GitHub Actions + GitHub Pages** — automatic deployment from `main`
 
 ## 📁 Project Structure
 
-```
+```text
 weather-forecast-app/
-├── index.html      # Main page & markup
-├── script.js       # All application logic (API calls, effects, charts)
-├── style.css       # Styling, animations & weather effects
-├── sounds/         # Ambient audio files (rain, wind, thunder, etc.)
+├── .github/
+│   ├── ISSUE_TEMPLATE/          # Bug and feature request templates
+│   ├── pull_request_template.md # Pull request checklist
+│   └── workflows/
+│       └── deploy-pages.yml     # GitHub Pages deployment + runtime config
+├── sounds/                      # Ambient weather audio assets
+├── index.html                   # Main page and UI markup
+├── script.js                    # Weather API, state, effects, audio, and charts
+├── style.css                    # Layout, animations, and responsive styling
+├── config.example.js            # Local API-key configuration template
+├── .gitignore
+├── CODE_OF_CONDUCT.md
+├── LICENSE
 └── README.md
 ```
-
----
 
 ## 🚀 Getting Started
 
 ### Prerequisites
 
-- A modern web browser (Chrome, Firefox, Edge, Safari)
-- An internet connection (for the API and Chart.js CDN)
+- A modern web browser
+- An internet connection
+- An OpenWeatherMap API key for local development
 
 ### Run Locally
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/<your-username>/<repo-name>.git
-   cd <repo-name>
+   git clone git@github.com:hesam-amani/weather-forecast-app.git
+   cd weather-forecast-app
    ```
 
-2. **Open `index.html` in your browser** — that's it!  
-   No installs, no build tools, no dependencies to manage.
+2. **Create your local runtime configuration**
+   ```bash
+   cp config.example.js config.js
+   ```
 
-### API Key
+3. **Edit `config.js`** and replace `YOUR_OPENWEATHER_API_KEY` with your own OpenWeatherMap API key.
 
-The app uses an OpenWeatherMap API key supplied at deployment time by GitHub Actions. The key is stored as a GitHub Actions repository secret and is never committed to the repository.
+4. **Serve the directory locally** using a simple local web server. For example, with Python:
+   ```bash
+   python3 -m http.server 8000
+   ```
+   Then open `http://localhost:8000` in your browser.
 
----
+> Opening `index.html` directly may work for some static assets, but using a local HTTP server is the recommended setup because the app uses browser APIs such as geolocation and fetch-based API requests.
+
+### API Key & Deployment
+
+The repository does **not** contain a committed production API key. On GitHub Pages deployments, GitHub Actions reads the `WEATHER_KEY` repository secret and generates `config.js` during the build before publishing the site.
+
+Because this is a browser application, the API key is ultimately delivered to the browser and **cannot be treated as a true secret**. The deployment workflow keeps it out of Git history, while the key itself should be configured with appropriate OpenWeatherMap usage limits/restrictions where available.
 
 ## 🎮 Usage
 
-1. **Search by city** — Type a city name and click **🔍 Get Weather**.
-2. **Use your location** — Click **📍 Use My Location** (browser will ask for permission).
-3. **Toggle units** — Click **🔃 Switch to °F / °C** to convert temperatures and wind speed.
-4. **Mute / Unmute** — Click **🔊 Mute** to toggle ambient weather sounds.
-5. Scroll down to view **hourly forecast cards** and **weather charts**.
+1. **Search by city** — Enter a city and select **Get Weather**.
+2. **Use your location** — Select **Use My Location** and allow browser location access.
+3. **Toggle units** — Switch between °C and °F after a weather result is available.
+4. **Mute sounds** — Toggle ambient weather audio with the mute button.
+5. **Explore the forecast** — Scroll through the daily and hourly forecasts and view the charts.
 
----
+## 🤝 Contributing
+
+Issues and pull requests are welcome. Please use the included issue and pull request templates when contributing.
 
 ## 📄 License
 
 This project is open-source and available under the [MIT License](LICENSE).
 
----
-
 ## 🙏 Acknowledgements
 
-- [OpenWeatherMap](https://openweathermap.org/) for the weather data API
-- [Chart.js](https://chartjs.org/) for the charting library
+- [OpenWeatherMap](https://openweathermap.org/) for weather data and APIs
+- [Chart.js](https://www.chartjs.org/) for interactive charts
+- [Contributor Covenant](https://www.contributor-covenant.org/) for the Code of Conduct template
